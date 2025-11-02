@@ -1,11 +1,11 @@
-import { imageEffectsHandler } from "~/http/v1/routes/images/effects";
+import { imageEffectsController } from "~/http/v1/routes/images/effects";
 import { json } from "~/shared/utils";
 
 const server = Bun.serve({
 	routes: {
 		"/health": () => new Response("OK", { status: 200 }),
 
-		"/v1/images/effects/:effectId": imageEffectsHandler,
+		"/v1/images/effects/:effectId": imageEffectsController,
 	},
 	fetch: () => {
 		return json({ success: false, message: "Not Found" }, { status: 404 });

@@ -1,8 +1,8 @@
 import { isValidImageEffectId } from "~/effects/images/utils";
-import type { RouteHandler } from "~/http/v1/routes/types";
+import type { RouteController } from "~/http/v1/routes/types";
 import { json } from "~/shared/utils";
 
-export const imageEffectsHandler: RouteHandler<"/v1/images/effects/:effectId"> = async (req) => {
+export const imageEffectsController: RouteController<"/v1/images/effects/:effectId"> = async (req) => {
 	const { effectId } = req.params;
 
 	if (req.method !== "POST") {
