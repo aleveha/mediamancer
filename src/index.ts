@@ -3,7 +3,7 @@ import { json } from "~/shared/utils";
 
 const server = Bun.serve({
 	routes: {
-		"/health": () => new Response("OK", { status: 200 }),
+		"/health": () => json({ success: true, message: "OK" }, { status: 200 }),
 
 		"/v1/images/effects/:effectId": imageEffectsController,
 	},
