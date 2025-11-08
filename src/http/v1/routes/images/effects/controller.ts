@@ -1,17 +1,17 @@
-import { isValidImageEffectId } from "~/effects/images/utils";
-import type { RouteController } from "~/http/v1/routes/types";
-import { json } from "~/shared/utils";
+import { Elysia } from "elysia";
+import { literal, object, union } from "valibot";
+import { IMAGE_EFFECTS_LIST } from "~/effects/images/types";
 
-export const imageEffectsController: RouteController<"/v1/images/effects/:effectId"> = async (req) => {
-	const { effectId } = req.params;
-
-	if (req.method !== "POST") {
-		return json({ success: false, message: "Method not allowed" }, { status: 405 });
-	}
-
-	if (!isValidImageEffectId(effectId)) {
-		return json({ success: false, message: `Unknown image effect: ${effectId}` }, { status: 400 });
-	}
-
-	return json({ success: false, message: "Not implemented" }, { status: 501 });
-};
+export const imageEffectsRoute = new Elysia({ prefix: "/v1/images/effects" }).post(
+	"/:effectId",
+	({ params }) => {
+		const { effectId } = params;
+		console.log("Effect ID:", effectId);
+		return { success: false, message: "Not implemented" };
+	},
+	{
+		params: object({
+			effectId: union(IMAGE_EFFECTS_LIST.map((id) => literal(id))),
+		}),
+	},
+);

@@ -4,7 +4,7 @@ export const IMAGE_EFFECTS = {
 	},
 } as const;
 
-export const IMAGE_EFFECTS_LIST = Object.keys(IMAGE_EFFECTS);
+export const IMAGE_EFFECTS_LIST = Object.keys(IMAGE_EFFECTS) as ImageEffectId[];
 
 export type ImageEffectId = keyof typeof IMAGE_EFFECTS;
 export type ImageEffect = (typeof IMAGE_EFFECTS)[ImageEffectId];
