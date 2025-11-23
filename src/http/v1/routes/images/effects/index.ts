@@ -1,1 +1,1 @@
-export * from "./controller";
+export { routes as effectsRoutes } from "./controller";
