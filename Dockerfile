@@ -9,15 +9,16 @@ RUN bun install --production
 
 # Building the app
 COPY . .
-RUN bun run build-exe
+RUN bun run build
 
 # Runner stage
-FROM gcr.io/distroless/cc-debian12:nonroot AS runner
+FROM oven/bun:alpine AS runner
 WORKDIR /app
 
-# Copy the built executable and @img folder so the executable can find sharp native modules
-COPY --from=build --chmod=755 /app/dist/exe /app/exe
-COPY --from=build /app/node_modules/@img /app/node_modules/@img
+# Copy the built executable and node_modules so the executable can find sharp native modules
+COPY --from=build /app/dist /app
+COPY --from=build /app/package.json /app/package.json
+COPY --from=build /app/node_modules /app/node_modules
 
 # Run the executable
-CMD ["/app/exe"]
+CMD ["bun", "run", "/app/index.js"]
