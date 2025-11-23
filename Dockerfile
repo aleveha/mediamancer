@@ -9,7 +9,7 @@ RUN bun install --production
 
 # Building the app
 COPY . .
-RUN bun run build
+RUN bun run build-exe
 
 # Runner stage
 FROM gcr.io/distroless/cc-debian12:nonroot AS runner
