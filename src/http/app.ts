@@ -1,7 +1,16 @@
+import openapi from "@elysiajs/openapi";
+import { toJsonSchema } from "@valibot/to-json-schema";
 import { Elysia } from "elysia";
 import { v1Routes } from "~/http/v1/routes";
 
 export const app = new Elysia()
+	.use(
+		openapi({
+			mapJsonSchema: {
+				valibot: toJsonSchema,
+			},
+		}),
+	)
 	.use(v1Routes)
 	.get("/health", ({ status }) => status(200, "OK"))
 	.onError(({ code, error, path, request, status }) => {
